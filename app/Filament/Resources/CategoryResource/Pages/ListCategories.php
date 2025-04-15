@@ -14,9 +14,6 @@ class ListCategories extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Action::make('Download Template')
-                ->url(route('download_template'))
-                ->color('blue'),
             Actions\CreateAction::make(),
         ];
     }
