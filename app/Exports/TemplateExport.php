@@ -31,7 +31,7 @@ class ProductsExport implements FromCollection, WithHeadings, WithTitle
         return [
             'category_id',
             'name',
-            'slug',
+            // 'slug',
             'stock',
             'image',
             'barcode',
