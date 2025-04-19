@@ -35,6 +35,10 @@ class Pos extends Component implements HasForms
     public $change_amount = '';
     public $order_items = [];
     public $total_price;
+
+    public $listeners = [
+        'scanResult' => 'handleScanResult',
+    ];
     public function render()
     {
         $products = Product::where('stock', '>=', 1)->search($this->search)->paginate(10);
@@ -256,5 +260,19 @@ class Pos extends Component implements HasForms
         session()->forget(['orderItems']);
 
         return redirect()->to('dashboard/orders');
+    }
+
+    public function handleScanResult($decodedText)
+    {
+        $product = Product::where('barcode', $decodedText)->first();
+
+        if ($product) {
+            $this->addToOrder($product->id);
+        } else {
+            Notification::make()
+                ->title('Sorry, the product is not found!')
+                ->danger()
+                ->send();
+        }
     }
 }

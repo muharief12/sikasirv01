@@ -13,9 +13,13 @@ class ProductFavorite extends BaseWidget
     protected static ?int $sort = 4;
     public function table(Table $table): Table
     {
+        // $productQuery = Product::query()
+        //     ->withCount('orderProducts')
+        //     ->orderByDesc('order_products_count')
+        //     ->take(5);
         $productQuery = Product::query()
-            ->withCount('orderProducts')
-            ->orderByDesc('order_products_count')
+            ->withSum('orderProducts as order_products_sum', 'qty')
+            ->orderByDesc('order_products_sum')
             ->take(5);
         return $table
             ->query($productQuery)
@@ -26,7 +30,7 @@ class ProductFavorite extends BaseWidget
                 Tables\Columns\TextColumn::make('category.name')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('order_products_count')
+                TextColumn::make('order_products_sum')
                     ->label('Product Sale')
                     ->sortable()
 

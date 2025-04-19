@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use TomatoPHP\FilamentInvoices\Facades\FilamentInvoices;
 use TomatoPHP\FilamentInvoices\Services\Contracts\InvoiceFor;
@@ -23,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // if (config('app.env') === 'local') {
+        //     URL::forceScheme('https');
+        // }
+
         FilamentInvoices::registerFor([
             InvoiceFor::make(User::class)
                 ->label('Account')
