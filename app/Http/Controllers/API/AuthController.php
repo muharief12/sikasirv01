@@ -12,7 +12,15 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
+            /**
+             * Email
+             * @example admin001@sikasirv01.dev
+             */
             'email' => 'required|email',
+            /**
+             * Password
+             * @example password
+             */
             'password' => 'required',
         ]);
 
@@ -26,7 +34,7 @@ class AuthController extends Controller
             ], 422);
         }
 
-        $token = $user->createToken('API Token')->plaintTexttoken;
+        $token = $user->createToken('API Token')->plainTextToken;
         return response()->json([
             'success' => true,
             'message' => 'Login success!',

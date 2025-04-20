@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use App\Models\User;
+use Dedoc\Scramble\Scramble;
+use Dedoc\Scramble\Support\Generator\OpenApi;
+use Dedoc\Scramble\Support\Generator\SecurityScheme;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use TomatoPHP\FilamentInvoices\Facades\FilamentInvoices;
@@ -36,5 +39,12 @@ class AppServiceProvider extends ServiceProvider
             InvoiceFrom::make(User::class)
                 ->label('Company')
         ]);
+        // Untuk aktivasi API Security
+        Scramble::configure()
+            ->withDocumentTransformers(function (OpenApi $openApi) {
+                $openApi->secure(
+                    SecurityScheme::http('bearer')
+                );
+            });
     }
 }
