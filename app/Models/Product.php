@@ -28,6 +28,13 @@ class Product extends Model
         return $this->hasMany(OrderProduct::class, 'product_id');
     }
 
+    public function getImageUrlAttribute()
+    {
+        return $this->image ? url('storage/' . $this->image) : null;
+    }
+
+    protected $appends = ['image_url'];
+
     public function scopeSearch($query, $value)
     {
         $query->where('name', 'LIKE', "%{$value}%");

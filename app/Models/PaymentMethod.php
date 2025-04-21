@@ -18,4 +18,11 @@ class PaymentMethod extends Model
     {
         return $this->hasMany(Order::class, 'payment_method_id');
     }
+
+    public function getImageUrlAttribute()
+    {
+        return $this->image ? url('storage/' . $this->image) : null;
+    }
+
+    protected $appends = ['image_url'];
 }
