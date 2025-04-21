@@ -4,7 +4,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\PaymentMethodController;
 use App\Http\Controllers\API\ProductController;
-use App\Models\Setting;
+use App\Http\Controllers\API\SettingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,4 +18,4 @@ Route::get('/user', function (Request $request) {
 
 Route::get('payment_methods', [PaymentMethodController::class, 'index'])->middleware('auth:sanctum');
 Route::get('orders', [OrderController::class, 'index'])->middleware('auth:sanctum');
-Route::get('setting', [Setting::class, 'index'])->middleware(['auth:sanctum']);
+Route::get('setting', [SettingController::class, 'index'])->middleware(['auth:sanctum']);
