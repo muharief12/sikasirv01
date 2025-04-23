@@ -17,5 +17,6 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('payment_methods', [PaymentMethodController::class, 'index'])->middleware('auth:sanctum');
-Route::get('orders', [OrderController::class, 'index'])->middleware('auth:sanctum');
+// Route::get('orders', [OrderController::class, 'index'])->middleware('auth:sanctum');
+Route::apiResource('orders', OrderController::class)->middleware('auth:sanctum');
 Route::get('setting', [SettingController::class, 'index'])->middleware(['auth:sanctum']);
